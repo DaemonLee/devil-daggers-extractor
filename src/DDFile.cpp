@@ -32,14 +32,14 @@ static void _mkdir_tree(const char *dir)
 			#ifdef _MSC_VER
 				_mkdir(tmp);
 			#else
-				mkdir(tmp, 0755);
+				mkdir(tmp, 0644);
 			#endif
 			*p = '/';
 		}
 		#ifdef _MSC_VER
 			_mkdir(tmp);
 		#else
-			mkdir(tmp, 0755);
+			mkdir(tmp, 0644);
 		#endif
 }
 
@@ -178,7 +178,7 @@ bool DDFile::extract(std::string folderToExtractTo)
 		// autodetect filetype
 		if (m_subFileHeaders[i].typeflags & 0x20)
 			outputFileName.append(".wav");
-		std::cout << "  Writing "<< outputFileName <<" ...\n";
+		std::cout << "  Writing " << outputFileName << " ...\n";
 		std::ofstream output(outputFileName.c_str(), std::ios::out | std::ios::binary);
 		if (output.is_open())
 		{
