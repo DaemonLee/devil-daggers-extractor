@@ -86,7 +86,7 @@ bool DDFile::load(std::string filename)
 
 	// get file size
 	fseek(file, 0, SEEK_END);
-	int filesize = ftell(file);
+	unsigned long filesize = ftell(file);
 	fseek(file, 0, SEEK_SET);
 
 	// filesize error checking
@@ -112,8 +112,7 @@ bool DDFile::load(std::string filename)
 
 	if (m_header->magicnumber[0] != 0x3a68783a || m_header->magicnumber[1] != 0x72673a01)
 		std::cout << "WARNING: Header seems to be incorrect ([" << m_header->magicnumber[0] << "] [" << m_header->magicnumber[1] << "])!\n";
-
-	printf("header.dataoffset: %i\n", m_header->dataoffset + sizeof(DDHeader));
+	std::cout << "header.dataoffset: " << m_header->dataoffset + sizeof(DDHeader) << "\n";
 
 	// load all sub file headers
 	u32 *dataPointer = (u32*)((u8*)m_fileBuffer + sizeof(DDHeader));
@@ -164,13 +163,12 @@ bool DDFile::extract(std::string folderToExtractTo)
 		std::cerr << "ERROR: load() a file before trying to extract it.\n";
 		return false;
 	}
-
-	printf("Starting extraction for %i subfiles:\n", m_subFileHeaders.size());
+	std::cout << "Starting extraction for " << m_subFileHeaders.size() << " subfiles:\n";
 
 	// create folder if it doesn't exist already
 	_mkdir_tree(folderToExtractTo.c_str());
 
-	for (int i = 0; i<m_subFileHeaders.size(); i++)
+	for (unsigned long i = 0; i<m_subFileHeaders.size(); i++)
 	{
 		std::string outputFileName = folderToExtractTo;
 		outputFileName.append((char*)m_subFileHeaders[i].filename);
