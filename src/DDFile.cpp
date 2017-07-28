@@ -150,8 +150,12 @@ bool DDFile::load(std::string filename)
 
 		// add it
 		m_subFileHeaders.push_back(subFileHeader);
-
-		printf("subFile #%i: name = %s, type = %08x, offset = %i, filesize = %f MB\n", fileCounter, subFileHeader.filename, subFileHeader.typeflags, subFileHeader.offset, subFileHeader.filesize/1024.0f/1024.0f);
+		std::cout << "subFile #" << fileCounter
+							<< ": name = " << subFileHeader.filename
+							<< ", type = " << std::hex << subFileHeader.typeflags << std::dec
+							<< ", offset = "<< subFileHeader.offset
+							<< ", filesize = " << subFileHeader.filesize/1024.0f/1024.0f
+							<< " MB\n";
 		fileCounter++;
 	}
 
