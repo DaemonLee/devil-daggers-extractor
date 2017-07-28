@@ -89,7 +89,7 @@ bool DDFile::load(std::string filename)
 
 	// get file size
 	fseek(file, 0, SEEK_END);
-	unsigned long filesize = ftell(file);
+	u32 filesize = ftell(file);
 	fseek(file, 0, SEEK_SET);
 
 	// filesize error checking
@@ -171,7 +171,7 @@ bool DDFile::extract(std::string folderToExtractTo)
 	// create folder if it doesn't exist already
 	_mkdir_tree(folderToExtractTo.c_str());
 
-	for (unsigned long i = 0; i<m_subFileHeaders.size(); i++)
+	for (u32 i = 0; i<m_subFileHeaders.size(); i++)
 	{
 		std::string outputFileName = folderToExtractTo;
 		outputFileName.append((char*)m_subFileHeaders[i].filename);
