@@ -5,7 +5,7 @@
 // $NoKeywords: $
 //=====================================================================//
 
-#include <stdio.h>
+#include <iostream>
 
 #include "DDFile.hpp"
 
@@ -13,10 +13,11 @@ int main(int argc, const char* argv[])
 {
 	if (argc < 2 || argc > 3)
 	{
-		printf("Invalid arguments.\n");
-		printf("	Usage: ddex.exe <filename>\n");
-		printf("	       ddex.exe <filename> <path/to/output/directory/>\n");
-		printf("\nExample: ddex.exe audio somefolder/extractedFiles/\n");
+		std::cout <<
+	         "Invalid arguments.\n"
+		       "	Usage: " << argv[0] << " <filename>\n"
+		       "	       " << argv[0] << " <filename> <path/to/output/directory/>\n"
+		       "\nExample: " << argv[0] << " audio somefolder/extractedFiles/\n";
 		return 0;
 	}
 

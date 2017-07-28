@@ -80,7 +80,7 @@ bool DDFile::load(std::string filename)
 	FILE *file = fopen(filename.c_str(), "rb");
 	if (!file)
 	{
-		printf("ERROR: %s does not exist!\n", filename.c_str());
+		std::cerr << "ERROR: " << filename << " does not exist!\n";
 		return false;
 	}
 
@@ -92,7 +92,7 @@ bool DDFile::load(std::string filename)
 	// filesize error checking
 	if (filesize < (sizeof(DDHeader)))
 	{
-		printf("ERROR: Invalid filesize (%i)\n", filesize);
+		std::cerr << "ERROR: Invalid filesize (" << filesize << ")\n";
 		fclose(file);
 		return false;
 	}
@@ -111,7 +111,7 @@ bool DDFile::load(std::string filename)
 	m_header->magicnumber[1] = endianSwapU32(m_header->magicnumber[1]);
 
 	if (m_header->magicnumber[0] != 0x3a68783a || m_header->magicnumber[1] != 0x72673a01)
-		printf("WARNING: Header seems to be incorrect ([%x] [%x])!\n", m_header->magicnumber[0], m_header->magicnumber[1]);
+		std::cout << "WARNING: Header seems to be incorrect ([" << m_header->magicnumber[0] << "] [" << m_header->magicnumber[1] << "])!\n";
 
 	printf("header.dataoffset: %i\n", m_header->dataoffset + sizeof(DDHeader));
 
@@ -141,8 +141,8 @@ bool DDFile::load(std::string filename)
 		// check if we are done before adding it
 		if (subFileHeader.typeflags == 0)
 		{
-			printf("==============================================================================\n");
-			printf("This seems to be the end of the subfileheaders.\n");
+			std::cout << "==============================================================================\n"
+									 "This seems to be the end of the subfileheaders.\n";
 			break;
 		}
 
@@ -161,7 +161,7 @@ bool DDFile::extract(std::string folderToExtractTo)
 {
 	if (!m_bLoaded)
 	{
-		printf("ERROR: load() a file before trying to extract it.\n");
+		std::cerr << "ERROR: load() a file before trying to extract it.\n";
 		return false;
 	}
 
@@ -178,18 +178,17 @@ bool DDFile::extract(std::string folderToExtractTo)
 		// autodetect filetype
 		if (m_subFileHeaders[i].typeflags & 0x20)
 			outputFileName.append(".wav");
-
-		printf("  Writing %s ...\n", outputFileName.c_str());
+		std::cout << "  Writing "<< outputFileName <<" ...\n";
 		std::ofstream output(outputFileName.c_str(), std::ios::out | std::ios::binary);
 		if (output.is_open())
 		{
 			output.write(reinterpret_cast<char*>(&((u8*)m_fileBuffer)[m_subFileHeaders[i].offset]), m_subFileHeaders[i].filesize);
 		}
 		else
-			printf("ERROR: Couldn't write %s!\n", outputFileName.c_str());
+			std::cerr << "ERROR: Couldn't write " << outputFileName <<"!\n";
 	}
 
-	printf("Done.\n");
+	std::cout << "Done.\n";
 
 	return true;
 }
