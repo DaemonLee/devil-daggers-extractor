@@ -5,6 +5,8 @@
 // $NoKeywords: $
 //=====================================================================//
 
+#include <stdio.h>
+
 #include "DDFile.h"
 
 int main(int argc, const char* argv[])

@@ -8,7 +8,11 @@
 #include "DDFile.h"
 #include <fstream>
 #include <iostream>
-#include <direct.h>
+#include <cstring>
+#include <sys/stat.h>
+#ifdef _MSC_VER
+	#include <direct.h>
+#endif
 
 // recursive directory creation function (c) Nico Golde @ http://nion.modprobe.de/blog/archives/357-Recursive-directory-creation.html
 static void _mkdir_tree(const char *dir)
@@ -25,10 +29,18 @@ static void _mkdir_tree(const char *dir)
 		if (*p == '/')
 		{
 			*p = 0;
-			_mkdir(tmp);
+			#ifdef _MSC_VER
+				_mkdir(tmp);
+			#else
+				mkdir(tmp, 0755);
+			#endif
 			*p = '/';
 		}
-	_mkdir(tmp);
+		#ifdef _MSC_VER
+			_mkdir(tmp);
+		#else
+			mkdir(tmp, 0755);
+		#endif
 }
 
 DDFile::DDFile()
