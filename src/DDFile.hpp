@@ -5,8 +5,8 @@
 // $NoKeywords: $ddf
 //=====================================================================//
 
-#ifndef DDFILE_H
-#define DDFILE_H
+#ifndef DDFILE_HPP
+#define DDFILE_HPP
 
 #include <string>
 #include <vector>

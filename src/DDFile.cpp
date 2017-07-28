@@ -5,7 +5,7 @@
 // $NoKeywords: $ddf
 //=====================================================================//
 
-#include "DDFile.h"
+#include "DDFile.hpp"
 #include <fstream>
 #include <iostream>
 #include <cstring>

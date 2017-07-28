@@ -7,7 +7,7 @@
 
 #include <stdio.h>
 
-#include "DDFile.h"
+#include "DDFile.hpp"
 
 int main(int argc, const char* argv[])
 {
