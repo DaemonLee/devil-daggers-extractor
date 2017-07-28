@@ -6,10 +6,13 @@
 //=====================================================================//
 
 #include "DDFile.hpp"
+
 #include <fstream>
 #include <iostream>
 #include <cstring>
 #include <sys/stat.h>
+#include <cstddef>
+
 #ifdef _MSC_VER
 	#include <direct.h>
 #endif
